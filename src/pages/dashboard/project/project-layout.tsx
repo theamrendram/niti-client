@@ -1,44 +1,53 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarHeader,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider, 
+  SidebarProvider,
   // SidebarTrigger
 } from "@/components/ui/sidebar";
-import { Home, Inbox, Calendar, Search, Settings } from "lucide-react";
+import { Home, Inbox, Calendar, Command } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 const ProjectLayout = () => {
-  const items = [
+  const mainMenuItems = [
     {
-      title: "Home",
+      title: "Dashboard",
       url: "#",
-      icon: Home,
+      icon: Command,
     },
     {
-      title: "Inbox",
+      title: "My to-do",
       url: "#",
       icon: Inbox,
     },
     {
-      title: "Calendar",
+      title: "Reports",
       url: "#",
       icon: Calendar,
     },
+  ];
+  const incomingDeadlinesItems = [
     {
-      title: "Search",
+      title: "Mobile app layout",
       url: "#",
-      icon: Search,
+      icon: Home,
     },
     {
-      title: "Settings",
+      title: "landing page 1",
       url: "#",
-      icon: Settings,
+      icon: Inbox,
+    },
+    {
+      title: "CMS deployment",
+      url: "#",
+      icon: Calendar,
     },
   ];
 
@@ -46,16 +55,57 @@ const ProjectLayout = () => {
     <div className="flex min-h-screen">
       <SidebarProvider>
         <Sidebar className="w-64">
+          <SidebarHeader>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <div className="border rounded-md flex items-center gap-2 p-2">
+                  <img
+                    src="https://ui-avatars.com/api/?name=Batman&background=121826&color=fff"
+                    alt="avatar"
+                    className="rounded-md h-8 w-8"
+                  />
+                  <div className="">
+                    <p>Batman</p>
+                    <p className="text-sm text-gray-600 -mt-1">
+                      batman@gmail.com
+                    </p>
+                  </div>
+                </div>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <div className="border rounded-md">
+                  <Input type="text" placeholder="search" />
+                </div>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Project</SidebarGroupLabel>
+              <SidebarGroupLabel>MAIN MENU</SidebarGroupLabel>
               <SidebarGroupContent>
-                <SidebarMenu>
-                  {items.map((item) => (
+                <SidebarMenu className="text-gray-500">
+                  {mainMenuItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
                         <Link to={item.url} className="flex items-center gap-2">
-                          <item.icon />
+                          <item.icon className="text-black" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarGroup>
+              <SidebarGroupLabel>INCOMING DEADLINE</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu className="text-gray-500">
+                  {incomingDeadlinesItems.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link to={item.url} className="flex items-center gap-2">
+                          <item.icon className="text-black" />
                           <span>{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
