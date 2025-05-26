@@ -74,6 +74,29 @@ const kanbanData: kanbanBoardProps[] = [
       },
     ],
   },
+  {
+    title: "Done",
+    cardData: [
+      {
+        id: "8",
+        title: "Setup Project Repository",
+        priority: "medium",
+        description:
+          "Initialize GitHub repo with README, license, and initial commit.",
+        members: ["Alice"],
+        category: "DevOps",
+      },
+      {
+        id: "9",
+        title: "Create Wireframes",
+        priority: "low",
+        description:
+          "Develop low-fidelity wireframes for core screens using Figma.",
+        members: ["Bob"],
+        category: "UI/UX",
+      },
+    ],
+  },
 ];
 
 export { kanbanData };
