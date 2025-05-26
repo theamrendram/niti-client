@@ -101,7 +101,9 @@ const InviteModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
               />
 
               <div className="mt-4 border-t pt-4 space-y-2">
-                <p className="font-semibold text-gray-700 text-sm">Team Members</p>
+                <p className="font-semibold text-gray-700 text-sm">
+                  Team Members
+                </p>
                 {members.map((member) => (
                   <div
                     key={member.id}

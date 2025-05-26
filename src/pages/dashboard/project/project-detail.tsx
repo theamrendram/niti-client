@@ -9,13 +9,14 @@ import { FaTimeline } from "react-icons/fa6";
 import KanbanBoard from "@/components/kanban/kanban-board";
 import { kanbanData } from "@/data/mock-data";
 import InviteModal from "@/components/invite-modal";
+import DotBackground from "@/components/ui/dot-background";
 const ProjectDetail = () => {
   const { projectId } = useParams();
 
   const [openInvite, setOpenInvite] = useState(false);
 
   return (
-    <div className="">
+    <DotBackground>
       <Tabs defaultValue="kanban" className="w-full">
         {/* Combined Container with Border */}
         <div className="border rounded-md overflow-hidden bg-white">
@@ -119,7 +120,7 @@ const ProjectDetail = () => {
         </TabsContent>
       </Tabs>
       <InviteModal open={openInvite} setOpen={setOpenInvite} />
-    </div>
+    </DotBackground>
   );
 };
 
