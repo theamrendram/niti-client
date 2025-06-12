@@ -1,5 +1,5 @@
 import type { kanbanBoardProps } from "@/types/kanban.types";
-const kanbanData: kanbanBoardProps[] = [
+const initialKanbanData: kanbanBoardProps[] = [
   {
     title: "To Do",
     cardData: [
@@ -99,4 +99,4 @@ const kanbanData: kanbanBoardProps[] = [
   },
 ];
 
-export { kanbanData };
+export { initialKanbanData };

@@ -1,14 +1,47 @@
 import { Badge } from "../ui/badge";
 import { TfiCommentAlt } from "react-icons/tfi";
 import type { kanbanCardProps } from "@/types/kanban.types";
-
+import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 interface KanbanCardComponentProps {
   data: kanbanCardProps;
+  columnId: string;
 }
 
-const KanbanCard = ({ data }: KanbanCardComponentProps) => {
+const KanbanCard = ({ data, columnId }: KanbanCardComponentProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: data.id,
+    data: {
+      card: data,
+      columnId,
+    },
+    animateLayoutChanges: defaultAnimateLayoutChanges,
+  });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+    opacity: isDragging ? 0.5 : 1,
+  };
+
   return (
-    <div className="bg-white h-[200px] w-[250px] border rounded-md shadow p-2 flex flex-col justify-between">
+    <div
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
+      role="button"
+      aria-label={`Card: ${data.title}`}
+      className="bg-white h-[200px] w-[250px] border rounded-md shadow p-2 flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-blue-500"
+      tabIndex={0}>
+        
       {/* Top Badges */}
       <div className="flex justify-between gap-2">
         <div className="flex gap-2">

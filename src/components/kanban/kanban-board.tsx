@@ -2,7 +2,10 @@ import KanbanCard from "./kanban-card";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import type { kanbanBoardProps } from "@/types/kanban.types";
-
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 const KanbanBoard = (props: kanbanBoardProps) => {
   return (
     <div>
@@ -20,14 +23,15 @@ const KanbanBoard = (props: kanbanBoardProps) => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          {props.cardData.map((item) => (
-            <KanbanCard key={item.id} data={item} />
-          ))}
-        </div>
+        <SortableContext
+          items={props.cardData.map((card) => card.id)}
+          strategy={verticalListSortingStrategy}>
+            {props.cardData.map((item) => (
+              <KanbanCard key={item.id} data={item} columnId={props.title} />
+            ))}
+        </SortableContext>
+          </div>
       </div>
-      <div className="in-progress"></div>
-      <div className="review"></div>
-      <div className="completed"></div>
     </div>
   );
 };
