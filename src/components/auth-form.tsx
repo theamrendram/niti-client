@@ -12,11 +12,8 @@ import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
-
+import axios from "axios";
 const FormSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters." }),
   email: z.string().email({
     message: "Invalid email format",
   }),
@@ -28,36 +25,44 @@ const FormSchema = z.object({
 const Auth = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log("data", data);
-    alert("form submitted successfully");
+    console.log("All env vars:", import.meta.env);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/signin`,
+        {
+          body: JSON.stringify(data),
+          credentials: "include", // Include cookies for authentication
+        }
+      );
+
+      if (response.status !== 200) {
+        const errorData = await response.data;
+        alert(`Error: ${errorData.error || "Something went wrong"}`);
+        return;
+      }
+
+      // const result = await response.json();
+      alert("Form submitted successfully!");
+
+      // Handle successful login (e.g., redirect)
+      // window.location.href = '/dashboard';
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error occurred. Please try again.");
+    }
   }
 
   return (
     <section className="bg-blue-100 flex items-center justify-center min-h-screen">
-      <div className="bg-white min-w-lg m-auto p-4 shadow rounded-lg">
+      <div className="bg-white w-[350px] md:max-w-[500px] m-auto p-4 shadow rounded-lg">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem className="py-2">
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="username" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="email"
@@ -84,7 +89,9 @@ const Auth = () => {
                 </FormItem>
               )}
             />
-            <Button className="w-full" type="submit">Login</Button>
+            <Button className="w-full" type="submit">
+              Login
+            </Button>
           </form>
         </Form>
       </div>
@@ -93,4 +100,3 @@ const Auth = () => {
 };
 
 export default Auth;
-
