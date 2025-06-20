@@ -15,38 +15,38 @@ import { Home, Inbox, Calendar, Command } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
-const ProjectLayout = () => {
+const AppSidebar = () => {
   const mainMenuItems = [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: Command,
     },
     {
       title: "My to-do",
-      url: "#",
+      url: "/to-do",
       icon: Inbox,
     },
     {
       title: "Reports",
-      url: "#",
+      url: "/reports",
       icon: Calendar,
     },
   ];
   const incomingDeadlinesItems = [
     {
       title: "Mobile app layout",
-      url: "#",
+      url: "/projects/Mobile Development",
       icon: Home,
     },
     {
       title: "landing page 1",
-      url: "#",
+      url: "/projects/Landing Page",
       icon: Inbox,
     },
     {
       title: "CMS deployment",
-      url: "#",
+      url: "/projects/CMS Development",
       icon: Calendar,
     },
   ];
@@ -125,4 +125,4 @@ const ProjectLayout = () => {
   );
 };
 
-export default ProjectLayout;
+export default AppSidebar;
